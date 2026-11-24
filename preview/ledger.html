@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN" data-design="ledger">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Host Ledger · Awesome Host Manager</title>
+    <link rel="icon" href="../public/images/logo-16.png">
+    <script>
+      if (new URLSearchParams(location.search).has("embed")) {
+        document.documentElement.dataset.embed = "true"
+      }
+    </script>
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./ledger.css">
+  </head>
+  <body data-design="ledger">
+    <div class="preview-stage">
+      <a class="concept-back" href="./">← All concepts</a>
+      <section class="app-window ledger-app" data-app data-storage-key="awesome-host-preview-ledger">
+        <header class="ledger-masthead">
+          <div class="ledger-brand">
+            <span class="ledger-monogram">AH</span>
+            <div>
+              <strong>THE HOST LEDGER</strong>
+              <span>Local routing notes · Est. 2017</span>
+            </div>
+          </div>
+          <div class="masthead-meta">
+            <span>Vol. 07</span>
+            <span class="issue-line"></span>
+            <span>Nov 23, 2026</span>
+            <span class="ledger-live" data-role="status-label" data-active-label="LIVE" data-paused-label="PAUSED">LIVE</span>
+            <button class="masthead-settings" data-action="toggle-settings" type="button" aria-expanded="false" aria-label="Open settings">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="3.1"></circle>
+                <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="ledger-body">
+          <aside class="ledger-sidebar">
+            <div class="all-hosts-entry">
+              <div class="all-hosts-select" data-action="select-all" role="button" tabindex="0">
+                <span class="all-hosts-kicker">MASTER SWITCH</span>
+                <strong>All hosts</strong>
+                <small><span data-role="active-count">3</span> of <span data-role="group-total">4</span> groups in use</small>
+              </div>
+              <button class="all-hosts-toggle" data-action="toggle-all" type="button" aria-label="Enable all groups">
+                <span class="switch-track"><span class="switch-thumb"></span></span>
+              </button>
+            </div>
+
+            <div class="ledger-section-title">
+              <span>Filed groups</span>
+              <span><span data-role="route-total">9</span> routes</span>
+            </div>
+
+            <div class="group-list" data-role="groups"></div>
+
+            <button class="add-group-button" data-action="add-group" type="button">
+              <span>+</span>
+              Add a new group
+            </button>
+            <p class="ledger-footnote">Double-click a group name to rename it.</p>
+          </aside>
+
+          <main class="ledger-main">
+            <header class="ledger-article-head">
+              <div>
+                <span class="article-kicker" data-role="selected-kicker" data-all-label="Master file" data-group-label="Rule sheet">Rule sheet</span>
+                <h1 data-role="main-title">AyaNeo Production</h1>
+                <p data-role="subtitle">Enabled · 3 rules</p>
+              </div>
+              <div class="article-actions">
+                <button class="delete-button" data-action="delete-group" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 7h14M9 7V4.8h6V7M7.4 7l.8 12.2h7.6L16.6 7M10 10.5v5.5M14 10.5v5.5"></path>
+                  </svg>
+                  Delete
+                </button>
+                <span class="ledger-save-state" data-role="save-state" data-saved-label="FILED" data-dirty-label="EDITED" data-read-only-label="READ ONLY">FILED</span>
+              </div>
+            </header>
+
+            <section class="rule-sheet">
+              <header class="sheet-head">
+                <div>
+                  <span>ACTIVE FILE</span>
+                  <strong data-role="rule-count">3 rules</strong>
+                </div>
+                <span class="sheet-index">No. 03 / PAC</span>
+              </header>
+              <div class="editor-body sheet-body">
+                <div class="line-numbers" data-role="line-numbers">1</div>
+                <textarea data-role="editor" aria-label="Host rules" spellcheck="false" autocapitalize="off" autocomplete="off">81.71.151.14 ayaneo.com.cn
+81.71.151.14 store.ayaneo.com.cn
+81.71.151.14 account.ayaneo.com.cn</textarea>
+              </div>
+              <footer class="sheet-footer">
+                <span>Rules are read from top to bottom.</span>
+                <div>
+                  <button class="copy-button" data-action="copy" type="button">Copy</button>
+                  <button class="apply-button" data-action="save" type="button">Apply rules</button>
+                </div>
+              </footer>
+            </section>
+          </main>
+        </div>
+
+        <div class="toast" data-role="toast"></div>
+
+        <aside class="settings-panel ledger-settings" data-role="settings-panel" hidden>
+          <div class="settings-head">
+            <h2>Edition preferences</h2>
+            <button class="settings-close" data-action="close-settings" type="button" aria-label="Close settings">&times;</button>
+          </div>
+          <p>These controls are part of the interactive prototype. The extension will open its full options page.</p>
+          <div class="settings-row"><span>Default fallback</span><strong>DIRECT</strong></div>
+          <div class="settings-row"><span>Private windows</span><strong>Allowed</strong></div>
+          <button class="settings-action" data-action="reset-demo" type="button">Reset the ledger</button>
+        </aside>
+      </section>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>

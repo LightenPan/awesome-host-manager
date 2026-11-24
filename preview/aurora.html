@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN" data-design="aurora">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aurora Workspace · Awesome Host Manager</title>
+    <link rel="icon" href="../public/images/logo-16.png">
+    <script>
+      if (new URLSearchParams(location.search).has("embed")) {
+        document.documentElement.dataset.embed = "true"
+      }
+    </script>
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./aurora.css">
+  </head>
+  <body data-design="aurora">
+    <div class="preview-stage">
+      <a class="concept-back" href="./">← All concepts</a>
+      <section class="app-window aurora-app" data-app data-storage-key="awesome-host-preview-aurora">
+        <header class="aurora-header">
+          <div class="aurora-brand">
+            <span class="brand-mark"></span>
+            <div>
+              <strong>Awesome Hosts</strong>
+              <span>Atmosphere workspace</span>
+            </div>
+          </div>
+
+          <div class="aurora-status">
+            <div class="signal-orb">
+              <span data-role="active-count">3</span>
+            </div>
+            <div class="status-copy">
+              <strong data-role="status-label" data-active-label="Proxy active" data-paused-label="Proxy paused">Proxy active</strong>
+              <span>PAC engine · encrypted locally</span>
+            </div>
+            <div class="mini-equalizer" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <button class="aurora-settings-button" data-action="toggle-settings" type="button" aria-expanded="false" aria-label="Open settings">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="3.1"></circle>
+                <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="aurora-body">
+          <aside class="aurora-sidebar">
+            <div class="sidebar-heading">
+              <div>
+                <span>YOUR ROUTES</span>
+                <strong>Host groups</strong>
+              </div>
+              <button class="add-group-button" data-action="add-group" type="button" aria-label="Add host group">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10"></path></svg>
+              </button>
+            </div>
+
+            <div class="all-hosts-card">
+              <div class="all-hosts-select" data-action="select-all" role="button" tabindex="0">
+                <span class="all-hosts-orbit">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="7.8"></circle>
+                    <path d="M4.5 12h15M12 4.2c2.1 2.2 3.2 4.8 3.2 7.8S14.1 17.6 12 19.8C9.9 17.6 8.8 15 8.8 12S9.9 6.4 12 4.2Z"></path>
+                  </svg>
+                </span>
+                <span>
+                  <strong>All hosts</strong>
+                  <small><span data-role="route-total">9</span> routes across <span data-role="group-total">4</span> groups</small>
+                </span>
+              </div>
+              <button class="all-hosts-toggle" data-action="toggle-all" type="button" aria-label="Enable all groups">
+                <span class="switch-track"><span class="switch-thumb"></span></span>
+              </button>
+            </div>
+
+            <div class="group-list" data-role="groups"></div>
+
+            <div class="privacy-card">
+              <span class="privacy-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3.5 5 6.4v5.3c0 4.2 2.8 7.3 7 8.8 4.2-1.5 7-4.6 7-8.8V6.4L12 3.5Z"></path>
+                  <path d="m9.2 12 1.8 1.8 3.8-4"></path>
+                </svg>
+              </span>
+              <div>
+                <strong>Private windows ready</strong>
+                <small>Proxy permission is available in all windows.</small>
+              </div>
+            </div>
+          </aside>
+
+          <main class="aurora-main">
+            <header class="aurora-title-row">
+              <div>
+                <span class="aurora-kicker" data-role="selected-kicker" data-all-label="ALL ROUTES" data-group-label="ACTIVE GROUP">ACTIVE GROUP</span>
+                <h1 data-role="main-title">AyaNeo Production</h1>
+                <p data-role="subtitle">Enabled · 3 rules</p>
+              </div>
+              <div class="aurora-actions">
+                <button class="delete-group-button" data-action="delete-group" type="button" aria-label="Delete selected group">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 7h14M9 7V4.8h6V7M7.4 7l.8 12.2h7.6L16.6 7M10 10.5v5.5M14 10.5v5.5"></path>
+                  </svg>
+                </button>
+                <span class="aurora-save-state" data-role="save-state" data-saved-label="Synced" data-dirty-label="Edited" data-read-only-label="Preview">Synced</span>
+              </div>
+            </header>
+
+            <section class="aurora-editor">
+              <header class="aurora-editor-head">
+                <div class="editor-file">
+                  <span class="file-badge">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M7 3.5h7l4 4V20.5H7z"></path>
+                      <path d="M14 3.5v4h4M10 12h5M10 15h5"></path>
+                    </svg>
+                  </span>
+                  <div>
+                    <strong>hosts.pac</strong>
+                    <span>Local route collection</span>
+                  </div>
+                </div>
+                <div class="editor-head-meta">
+                  <span data-role="rule-count">3 rules</span>
+                  <span class="live-pill"><i></i>Live</span>
+                </div>
+              </header>
+              <div class="editor-body">
+                <div class="line-numbers" data-role="line-numbers">1</div>
+                <textarea data-role="editor" aria-label="Host rules" spellcheck="false" autocapitalize="off" autocomplete="off">81.71.151.14 ayaneo.com.cn
+81.71.151.14 store.ayaneo.com.cn
+81.71.151.14 account.ayaneo.com.cn</textarea>
+              </div>
+              <footer class="aurora-editor-footer">
+                <span>Changes apply to this group only.</span>
+                <div>
+                  <button class="copy-button" data-action="copy" type="button">Copy rules</button>
+                  <button class="save-button" data-action="save" type="button">
+                    Save changes
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.2 4.1L19 6.8"></path></svg>
+                  </button>
+                </div>
+              </footer>
+            </section>
+          </main>
+        </div>
+
+        <div class="toast" data-role="toast"></div>
+
+        <aside class="settings-panel aurora-settings" data-role="settings-panel" hidden>
+          <div class="settings-head">
+            <h2>Workspace settings</h2>
+            <button class="settings-close" data-action="close-settings" type="button" aria-label="Close settings">&times;</button>
+          </div>
+          <p>This panel is interactive for the concept preview. The extension uses the same entry point for its options.</p>
+          <div class="settings-row"><span>Default fallback</span><strong>DIRECT</strong></div>
+          <div class="settings-row"><span>Private windows</span><strong>Enabled</strong></div>
+          <button class="settings-action" data-action="reset-demo" type="button">Reset workspace</button>
+        </aside>
+      </section>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>

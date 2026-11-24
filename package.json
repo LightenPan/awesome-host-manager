@@ -8,7 +8,11 @@
   },
   "scripts": {
     "dev": "esbuild src/index.tsx --bundle --format=esm --outfile=public/dist/bundle.js --watch",
-    "build": "esbuild src/index.tsx --bundle --outfile=public/dist/bundle.js --minify --sourcemap"
+    "build": "esbuild src/index.tsx --bundle --outfile=public/dist/bundle.js --minify --sourcemap",
+    "build:chrome": "npm run build && node scripts/build-extension.mjs chrome",
+    "build:firefox": "npm run build && node scripts/build-extension.mjs firefox",
+    "build:all": "npm run build && node scripts/build-extension.mjs all",
+    "preview:designs": "node scripts/preview-server.mjs"
   },
   "devDependencies": {
     "esbuild": "^0.25.8",

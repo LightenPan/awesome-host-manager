@@ -14,7 +14,8 @@
     "128": "images/logo.png"
   },
   "permissions": [
-    "proxy"
+    "proxy",
+    "declarativeNetRequest"
   ],
   "host_permissions": [
     "<all_urls>"

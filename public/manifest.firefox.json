@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Awesome Host Manager",
+  "version": "1.2.0",
+  "description": "本地 hosts 管理插件",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "images/logo.png"
+  },
+  "icons": {
+    "16": "images/logo-16.png",
+    "48": "images/logo-48.png",
+    "128": "images/logo-128.png"
+  },
+  "permissions": [
+    "proxy",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "awesome-host-manager@keelii.github.io",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
+}

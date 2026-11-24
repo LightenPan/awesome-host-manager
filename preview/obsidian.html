@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN" data-design="obsidian">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Obsidian Control · Awesome Host Manager</title>
+    <link rel="icon" href="../public/images/logo-16.png">
+    <script>
+      if (new URLSearchParams(location.search).has("embed")) {
+        document.documentElement.dataset.embed = "true"
+      }
+    </script>
+    <link rel="stylesheet" href="./base.css">
+    <link rel="stylesheet" href="./obsidian.css">
+  </head>
+  <body data-design="obsidian">
+    <div class="preview-stage">
+      <a class="concept-back" href="./">← All concepts</a>
+      <section class="app-window obsidian-app" data-app data-storage-key="awesome-host-preview-obsidian">
+        <aside class="obsidian-rail">
+          <header class="obsidian-brand">
+            <span class="brand-mark"></span>
+            <div>
+              <span class="brand-eyebrow">AWESOME</span>
+              <strong>HOST / CTRL</strong>
+            </div>
+            <span class="brand-build">01</span>
+          </header>
+
+          <div class="network-line">
+            <span class="live-dot"></span>
+            <span data-role="status-label" data-active-label="PAC LIVE" data-paused-label="PAUSED">PAC LIVE</span>
+            <span class="network-spacer"></span>
+            <span><b data-role="active-count">3</b>/<span data-role="group-total">4</span> nodes</span>
+          </div>
+
+          <div class="all-hosts-row">
+            <div class="all-hosts-select" data-action="select-all" role="button" tabindex="0">
+              <span class="all-hosts-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="8.5"></circle>
+                  <path d="M3.8 12h16.4M12 3.5c2.2 2.3 3.3 5.1 3.3 8.5S14.2 18.2 12 20.5C9.8 18.2 8.7 15.4 8.7 12S9.8 5.8 12 3.5Z"></path>
+                </svg>
+              </span>
+              <span class="all-hosts-copy">
+                <strong>All hosts</strong>
+                <small><span data-role="route-total">9</span> active routes</small>
+              </span>
+            </div>
+            <button class="all-hosts-toggle" data-action="toggle-all" type="button" aria-label="Enable all groups">
+              <span class="switch-track"><span class="switch-thumb"></span></span>
+            </button>
+          </div>
+
+          <div class="rail-heading">
+            <span>ROUTE GROUPS</span>
+            <button data-action="add-group" type="button">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10M3 8h10"></path></svg>
+              New
+            </button>
+          </div>
+
+          <div class="group-list" data-role="groups"></div>
+
+          <footer class="rail-footer">
+            <button data-action="toggle-settings" type="button" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="3.2"></circle>
+                <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"></path>
+              </svg>
+              Settings
+            </button>
+            <span>v1.2.0</span>
+          </footer>
+        </aside>
+
+        <main class="obsidian-main">
+          <header class="workspace-header">
+            <div class="workspace-title">
+              <div class="workspace-kicker">
+                <span data-role="selected-kicker" data-all-label="OVERVIEW" data-group-label="CURRENT GROUP">CURRENT GROUP</span>
+                <span class="header-signal"><i></i><span data-role="status-label" data-active-label="PAC LIVE" data-paused-label="PAUSED">PAC LIVE</span></span>
+              </div>
+              <h1 data-role="main-title">AyaNeo Production</h1>
+              <p data-role="subtitle">Enabled · 3 rules</p>
+            </div>
+            <div class="header-actions">
+              <button class="icon-button" data-action="delete-group" type="button" aria-label="Delete selected group" title="Delete selected group">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 7h14M9 7V4.8h6V7M7.4 7l.8 12.2h7.6L16.6 7M10 10.5v5.5M14 10.5v5.5"></path>
+                </svg>
+              </button>
+              <button class="primary-button" data-action="save" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.2 4.1L19 6.8"></path></svg>
+                Save
+                <kbd>Ctrl S</kbd>
+              </button>
+            </div>
+          </header>
+
+          <section class="editor-panel">
+            <header class="editor-topline">
+              <span class="file-path"><i></i>/etc/hosts.control</span>
+              <span class="editor-metrics">
+                <span data-role="rule-count">3 rules</span>
+                <span class="editor-state" data-role="save-state" data-saved-label="SAVED" data-dirty-label="UNSAVED" data-read-only-label="READ ONLY">SAVED</span>
+              </span>
+            </header>
+            <div class="editor-body">
+              <div class="line-numbers" data-role="line-numbers">1</div>
+              <textarea data-role="editor" aria-label="Host rules" spellcheck="false" autocapitalize="off" autocomplete="off">81.71.151.14 ayaneo.com.cn
+81.71.151.14 store.ayaneo.com.cn
+81.71.151.14 account.ayaneo.com.cn</textarea>
+            </div>
+            <footer class="editor-footer">
+              <span>Select a group from the rail to edit its routing table.</span>
+              <button data-action="copy" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="8" y="8" width="11" height="12" rx="2"></rect>
+                  <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2"></path>
+                </svg>
+                Copy
+              </button>
+            </footer>
+          </section>
+        </main>
+
+        <div class="toast" data-role="toast"></div>
+
+        <aside class="settings-panel obsidian-settings" data-role="settings-panel" hidden>
+          <div class="settings-head">
+            <h2>Control preferences</h2>
+            <button class="settings-close" data-action="close-settings" type="button" aria-label="Close settings">&times;</button>
+          </div>
+          <p>Prototype controls for this concept. The real extension opens its options page here.</p>
+          <div class="settings-row"><span>PAC engine</span><strong>Live</strong></div>
+          <div class="settings-row"><span>Private windows</span><strong>Allowed</strong></div>
+          <button class="settings-action" data-action="reset-demo" type="button">Reset demo data</button>
+        </aside>
+      </section>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>

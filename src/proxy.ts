@@ -1,5 +1,5 @@
 // @ts-nocheck
-/*global chrome*/
+/*global browser, chrome*/
 export const isIP = address =>
   /^(?!0)(?!.*\.$)((1?\d?\d|25[0-5]|2[0-4]\d)(\.|$)){4}$/.test(address)
 export const isDomain = name =>
@@ -37,21 +37,20 @@ export const getProxies = (lines) => {
   return lines.filter(proxy => isProxy(proxy[0]))
 }
 
+export const getHostEntries = content => {
+  const entries = []
+  getHosts(splitLines(content)).forEach(([address, ...domains]) => {
+    domains.forEach(domain => entries.push({ domain, address }))
+  })
+  return entries
+}
+
 export const parseRules = content => {
   const lines = splitLines(content)
-  const hosts = getHosts(lines)
   const proxies = getProxies(lines)
 
-  // console.log({lines, hosts, proxies})
-
-  let results = []
-  hosts.forEach(([ip, ...hosts]) => {
-    hosts.forEach(host => {
-      results.push([host, ip])
-    })
-  })
-  const hostContent = results.map(([host, address]) => {
-    return `      if (host == "${host}") return "PROXY ${address}; DIRECT";`
+  const hostContent = getHostEntries(content).map(({ domain, address }) => {
+    return `      if (host == "${domain}") return "PROXY ${address}; DIRECT";`
   }).join('\n')
 
   // const getHostContent = arr => {
@@ -84,12 +83,11 @@ export const parseRules = content => {
 }
 
 export function setProxy(content) {
-  let code = '\n'
   const result = parseRules(content)
   const defaultMethod =
     localStorage.getItem('AWESOME_HOST_otherProxies') || 'DIRECT'
 
-  let pacContent = `
+  const pacContent = `
   function FindProxyForURL(url, host) {
     if (shExpMatch(url, "http:*") || shExpMatch(url, "https:*")) {
 ${result.hostContent}
@@ -98,47 +96,98 @@ ${result.hostContent}
     
     return "DIRECT";
   }`
-  // let pacContent = `function FindProxyForURL(url, host) {
-  //       if (shExpMatch(url, "http:*") || shExpMatch(url, "https:*")) {
-  //           if (isPlainHostName(host) && host == 'localhost') {
-  //               return "DIRECT";
-  //           ${result.hostContent}
-  //           } else {
-  //               return "${result.proxyContent} ${defaultMethod}";
-  //           }
-  //       } else {
-  //           return "SYSTEM";
-  //       }
-  //   }`
-
-
-  console.log('proxy to:\n' + pacContent)
-  if (typeof chrome.proxy === 'undefined') return false
-  if (result.hostContent !== '' || result.proxyContent !== '') {
-    clearProxy(function() {
-      chrome.proxy.settings.set(
-        {
-          value: {
-            mode: 'pac_script',
-            pacScript: {
-              data: pacContent
-            }
-          },
-          scope: 'regular'
-        },
-        function() {}
-      )
-    })
-  } else {
-    clearProxy()
-  }
+  return updateProxy(result, pacContent)
 }
-export function clearProxy(cb?: () => void) {
-  cb = cb || function () {}
+
+export async function clearProxy() {
   console.log('clear.')
-  if (typeof chrome.proxy === 'undefined') {
-    console.log("chrome.proxy is not supported")
-    return false
+  const extension = getProxyExtension()
+  if (!extension) {
+    throw new Error('当前浏览器不支持 proxy 扩展 API')
   }
-  chrome.proxy.settings.clear({ scope: 'regular' }, cb)
+
+  if (extension.isFirefox) {
+    await ensureFirefoxPrivateAccess(extension.api)
+    await extension.api.proxy.settings.clear({})
+    return
+  }
+
+  await new Promise((resolve, reject) => {
+    extension.api.proxy.settings.clear({ scope: 'regular' }, () => {
+      const error = extension.api.runtime?.lastError
+      error ? reject(new Error(error.message)) : resolve(undefined)
+    })
+  })
+}
+
+async function updateProxy(result, pacContent) {
+  console.log('proxy to:\n' + pacContent)
+  const extension = getProxyExtension()
+  if (!extension) {
+    throw new Error('当前浏览器不支持 proxy 扩展 API')
+  }
+
+  if (extension.isFirefox) {
+    await ensureFirefoxPrivateAccess(extension.api)
+    await extension.api.proxy.settings.clear({})
+
+    if (result.hostContent === '' && result.proxyContent === '') return
+
+    const autoConfigUrl =
+      'data:application/x-ns-proxy-autoconfig;charset=utf-8,' +
+      encodeURIComponent(pacContent)
+    await extension.api.proxy.settings.set({
+      value: {
+        proxyType: 'autoConfig',
+        autoConfigUrl
+      }
+    })
+    return
+  }
+
+  await clearProxy()
+  if (result.hostContent === '' && result.proxyContent === '') return
+
+  await new Promise((resolve, reject) => {
+    extension.api.proxy.settings.set(
+      {
+        value: {
+          mode: 'pac_script',
+          pacScript: {
+            data: pacContent
+          }
+        },
+        scope: 'regular'
+      },
+      () => {
+        const error = extension.api.runtime?.lastError
+        error ? reject(new Error(error.message)) : resolve(undefined)
+      }
+    )
+  })
+}
+
+function getProxyExtension() {
+  const hasBrowserApi = typeof browser !== 'undefined'
+  const isFirefox =
+    hasBrowserApi &&
+    typeof browser.runtime?.getBrowserInfo === 'function' &&
+    browser.proxy?.settings
+
+  if (isFirefox) {
+    return { api: browser, isFirefox: true }
+  }
+  if (typeof chrome !== 'undefined' && chrome.proxy?.settings) {
+    return { api: chrome, isFirefox: false }
+  }
+  return null
+}
+
+async function ensureFirefoxPrivateAccess(api) {
+  if (typeof api.extension?.isAllowedIncognitoAccess !== 'function') return
+
+  const allowed = await api.extension.isAllowedIncognitoAccess()
+  if (!allowed) {
+    throw new Error('请在 Firefox 扩展设置中允许此扩展“在隐私窗口中运行”，然后重试')
+  }
 }
